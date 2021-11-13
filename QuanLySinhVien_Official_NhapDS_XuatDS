@@ -1,0 +1,312 @@
+// BTL-QuanLySinhVien-Nhom33
+#include <iostream>
+using namespace std;
+
+class ConNguoi{
+	private:
+		string HoTen, NgaySinh;
+		int GioiTinh;
+	public:
+		ConNguoi();
+		~ConNguoi();
+		string getHoTen();
+		void NhapCN();
+		void XuatCN();
+};
+ConNguoi::ConNguoi(){
+	HoTen = "";
+	NgaySinh = "";
+	GioiTinh = 0;
+}
+ConNguoi::~ConNguoi(){
+}
+string ConNguoi::getHoTen(){
+	return HoTen;
+}
+void ConNguoi::NhapCN(){
+	cout<<"Nhap ho va ten (vd: Le Van A): "; fflush(stdin); getline(cin,HoTen);
+	cout<<"Nhap ngay sinh (vd: 11/12/2001): "; fflush(stdin); getline(cin,NgaySinh);
+	cout<<"Nhap gioi tinh (1. Nam| 2.Nu): "; cin>>GioiTinh;
+	while(GioiTinh != 1 && GioiTinh != 2){
+		cout<<"Vui long nhap lai: "; cin>>GioiTinh;
+	}
+}
+void ConNguoi::XuatCN(){
+	cout<<HoTen<<"\t"<<NgaySinh<<"\t";
+	if(GioiTinh==1){
+		cout<<"Nam\t";
+	}else{
+		cout<<"Nu\t";
+	}
+}
+
+class SinhVien:public ConNguoi{
+	private:
+		string MSSV, Lop;
+		int HeSinhVien;
+	public:
+		SinhVien();
+		~SinhVien();
+		int getHeSinhVien();
+		void NhapSV();
+		void XuatSV();
+};
+SinhVien::SinhVien(){
+	MSSV = "";
+	Lop = "";
+	HeSinhVien = 0;
+}
+SinhVien::~SinhVien(){
+}
+int SinhVien::getHeSinhVien(){
+	return HeSinhVien;
+}
+void SinhVien::NhapSV(){
+	cout<<"Nhap ma so sinh vien: "; fflush(stdin); getline(cin,MSSV);
+	cout<<"Nhap ten lop (vd: Cong nghe thong tin K61): "; fflush(stdin); getline(cin,Lop);
+	cout<<"Nhap he sinh vien (1.He Chinh Quy| 2.He Tai Chuc| 3. He Cao Hoc): "; cin>>HeSinhVien;
+	while(HeSinhVien != 1 && HeSinhVien != 2 && HeSinhVien != 3){
+		cout<<"Vui long nhap lai: "; cin>>HeSinhVien;
+	}
+}
+void SinhVien::XuatSV(){
+	cout<<MSSV<<"\t"<<Lop<<"\t";
+}
+
+class SinhVienHeCaoHoc:public SinhVien{
+	private:
+		string TenTruong;
+	public:
+		SinhVienHeCaoHoc();
+		~SinhVienHeCaoHoc();
+		void NhapSVHCH();
+		void XuatSVHCH();
+};
+SinhVienHeCaoHoc::SinhVienHeCaoHoc(){
+	TenTruong = "";
+}
+SinhVienHeCaoHoc::~SinhVienHeCaoHoc(){
+}
+void SinhVienHeCaoHoc::NhapSVHCH(){
+	cout<<"Nhap ten truong da hoc: "; fflush(stdin); getline(cin,TenTruong);
+}
+void SinhVienHeCaoHoc::XuatSVHCH(){
+	cout<<"He cao hoc\t"<<TenTruong<<"\t";
+}
+
+class Diem{
+	private:
+		string TenHocPhan;
+		float DiemThanhPhan, DiemThi;
+		int HeSoDiem1, HeSoDiem2;
+		int SoTinChi;
+		int SoLuongHocPhan;
+		Diem *D;
+	public:
+		Diem();
+		Diem(int m);
+		~Diem();
+		float DiemKetThucHocPhan();
+		float DiemTrungBinhHe10();
+		float DiemTrungBinhHe4();
+		void NhapDiem();
+		void NhapDiemN();
+		void XuatDiem();
+		void XuatDiemN();
+};
+Diem::Diem(){
+	D = NULL;
+	TenHocPhan = "";
+	DiemThanhPhan = 0;
+	DiemThi = 0;
+	HeSoDiem1 = 0;
+	HeSoDiem2 = 0;
+	SoTinChi = 0;
+	SoLuongHocPhan = 0;
+}
+Diem::Diem(int m){
+	D = new Diem [m];
+	TenHocPhan = "";
+	DiemThanhPhan = 0;
+	DiemThi = 0;
+	HeSoDiem1 = 0;
+	HeSoDiem2 = 0;
+	SoTinChi = 0;
+	SoLuongHocPhan = 0;
+}
+Diem::~Diem(){
+	delete [] D;
+}
+void Diem::NhapDiem(){
+	cout<<"Nhap ten hoc phan: "; fflush(stdin); getline(cin,TenHocPhan);
+	cout<<"Nhap diem thanh phan: "; cin>>DiemThanhPhan;
+	cout<<"Nhap diem thi: "; cin>>DiemThi;
+	cout<<"Nhap ty le diem thanh phan va diem thi (vd: 3 7): "; cin>>HeSoDiem1>>HeSoDiem2;
+	cout<<"Nhap so tin chi: "; cin>>SoTinChi;
+}
+void Diem::NhapDiemN(){
+	cout<<"Nhap so luong hoc phan: "; cin>>SoLuongHocPhan;
+	D = new Diem [SoLuongHocPhan];
+	for(int i=0; i<SoLuongHocPhan; i++){
+		cout<<"Nhap thong tin hoc phan thu "<<i+1<<endl;
+		D[i].NhapDiem();
+	}
+}
+void Diem::XuatDiem(){
+	cout<<TenHocPhan<<"\t"<<DiemThanhPhan<<"\t"<<DiemThi<<"\t"<<HeSoDiem1<<"/"<<HeSoDiem2<<"\t"
+	<<SoTinChi<<"\t"<<DiemKetThucHocPhan()<<"\t";
+	
+}
+void Diem::XuatDiemN(){
+	for(int i=0; i<SoLuongHocPhan; i++){
+		cout<<endl;
+		D[i].XuatDiem();
+	}
+	cout<<"\nDiem trung binh:\nHe 10: "<<DiemTrungBinhHe10()<<"\t";
+	cout<<endl;
+}
+float Diem::DiemKetThucHocPhan(){
+	float DKTHP = (float(HeSoDiem1)/10)*DiemThanhPhan + (float(HeSoDiem2)/10)*DiemThi;
+	return DKTHP;
+}
+float Diem::DiemTrungBinhHe10(){
+	float He10 = 0;
+	for(int i=0; i<SoLuongHocPhan; i++){
+		He10 = He10 + (D[i].DiemKetThucHocPhan())/SoLuongHocPhan;
+	}
+	return He10;
+}
+ 
+
+class TruyXuat:public SinhVienHeCaoHoc, public Diem{
+	public:
+		void Nhap();
+		void Xuat();
+		void XuatBangDiem();
+};
+void TruyXuat::Nhap(){
+	ConNguoi::NhapCN();
+	SinhVien::NhapSV();
+	if(SinhVien::getHeSinhVien() == 3){
+		SinhVienHeCaoHoc::NhapSVHCH();
+	}
+	Diem::NhapDiemN();
+}
+void TruyXuat::Xuat(){
+	ConNguoi::XuatCN();
+	SinhVien::XuatSV();
+	if(SinhVien::getHeSinhVien() == 3){
+		SinhVienHeCaoHoc::XuatSVHCH();
+	}else if(SinhVien::getHeSinhVien() == 2){
+		cout<<"He tai chuc\t";
+	}else{
+		cout<<"He chinh quy\t";
+	}
+}
+void TruyXuat::XuatBangDiem(){
+	Diem::XuatDiemN();
+}
+class QuanLySinhVien{
+	private:
+		TruyXuat *TX;
+		int Size;
+	public:
+		QuanLySinhVien();
+		QuanLySinhVien(int num);
+		~QuanLySinhVien();
+		void NhapDS();
+		void XuatDS();
+};
+QuanLySinhVien::QuanLySinhVien(){
+	TX = NULL;
+	Size = 0;
+}
+QuanLySinhVien::QuanLySinhVien(int num){
+	TX = new TruyXuat[num];
+	Size = 0;
+}
+QuanLySinhVien::~QuanLySinhVien(){
+	delete [] TX;
+}
+
+void QuanLySinhVien::NhapDS(){
+	int n;
+	cout<<"Nhap So Luong sinh vien: "; cin>>n;
+	TX = new TruyXuat [n];
+	for(int i=0; i<n; i++){
+		cout<<"SV "<<i<<endl;
+		TX[i].Nhap();
+		Size++;
+	}
+}
+void QuanLySinhVien::XuatDS(){
+	while(true){
+		cout<<"\n\t\t\t\t********************************************";
+   		cout<<"\n\t\t\t\t**           FUNCTION SORT                **";
+  		cout<<"\n\t\t\t\t**                                        **";
+		cout<<"\n\t\t\t\t**  1. Hien thi danh sach sinh vien       **";
+		cout<<"\n\t\t\t\t**  2. Hien thi bang diem                 **";
+		cout<<"\n\t\t\t\t**  0. Exit                               **";
+		cout<<"\n\t\t\t\t**                                        **";
+    	cout<<"\n\t\t\t\t********************************************";
+    	int LuaChonHienThi;
+    	cout<<"\nNhap lua chon cua ban: "; cin>>LuaChonHienThi;
+    	switch(LuaChonHienThi){
+    		case 0:
+    			return;
+    		case 1:
+    			for(int i=0; i<Size; i++){
+					TX[i].Xuat(); cout<<endl;
+				}
+				system("pause");
+			break;
+			case 2:
+				for(int i=0; i<Size; i++){
+					cout<<"Sinh Vien: "<<TX[i].getHoTen()<<endl;
+					TX[i].XuatBangDiem(); cout<<endl;
+				}
+				system("pause");
+				break;
+			default:
+				cout<<"Khong co chuc nang nay!!!"<<endl;
+				system("pause");
+		}
+	}
+}
+
+void menu(){
+	QuanLySinhVien l;
+	while(true){
+		cout<<"\n\t\t\t\t*********************************************************";
+    	cout<<"\n\t\t\t\t**              STUDENT MANAGEMENT PROGRAM             **";
+    	cout<<"\n\t\t\t\t**                                                     **";
+    	cout<<"\n\t\t\t\t**              1. Nhap danh sach                      **";
+    	cout<<"\n\t\t\t\t**              2. Xuat danh sach                      **";
+    	cout<<"\n\t\t\t\t**              0. Exit                                **";
+    	cout<<"\n\t\t\t\t**                                                     **";
+    	cout<<"\n\t\t\t\t*********************************************************";
+    	
+    	int LuaChon;
+    	cout<<"\nNhap lua chon cua ban: "; cin>>LuaChon;
+    	switch(LuaChon){
+    		case 0:
+    			return;
+    		case 1:
+    			l.NhapDS();
+    			system("pause");
+    			break;
+    		case 2:
+    			l.XuatDS();
+    			system("pause");
+    			break;
+    		default:
+			cout<<"Khong co chuc nang nay!!!"<<endl;
+			system("pause");
+		}
+	}
+}
+
+int main(){
+	system("color A");
+	menu();
+}
