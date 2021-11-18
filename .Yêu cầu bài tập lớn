@@ -1,0 +1,42 @@
+# BTL-QuanLySinhVien-Nhom33
+Yêu cầu bài tập lớn Lập trình hướng đối tượng
+Phần I: Dịch tài liệu
+Các nhóm dịch một phần tài liệu trong quyển The C++ Programming
+Language Fourth Edition đã gửi trên classroom từ tiếng Anh qua tiếng Việt
+(Chương 16, 17, 18, 19, 29, 21).
+Lưu ý khi dịch: chỉ tóm tắt nội dung, dùng các hình ảnh và ví dụ minh
+họa trong sách để giải thích nội dung lý thuyết. Mỗi nhóm sẽ dịch không giống
+nhau vì đã tóm tắt, chọn lọc nên nhóm nào đạo văn của nhóm khác sẽ bị 0
+điểm.
+Phần II: Viết chương trình ứng dụng
+Sinh viên có thể lựa chọn một trong các hướng sau:
+1. Xây dựng phần mềm quản lý: quản lý sinh viên, quản lý học sinh, quản
+lý rạp chiếu phim,....
+Yêu cầu: Xây dựng chương trình bằng ngôn ngữ lập trình C++ gồm ít
+nhất 4 class trong ứng dụng, có đầy đủ các tính chất về hướng đối
+tượng (trừu tượng, đóng gói, kế thừa, đa hình), sử dụng ít nhất một cấu
+trúc dữ liệu (danh sách liên kết đơn, danh sách liên kết đôi, hàng đợi,...)
+có giao diện đồ họa, đầy đủ các chức năng trong thực tế.
+2. Xây dựng ứng dụng game: game đặt mìn, game bắn tàu,...
+Yêu cầu: game có giao diện đồ họa sinh động, đầy đủ chức năng, sử
+dụng các cấu trúc dữ liệu và thuật toán đã học để xử lý.
+3. Xây dựng một số phần mềm ứng dụng khác: ứng dụng mp3, ứng dụng
+tra từ điển Việt-Anh, ...
+Yêu cầu: chương trình có giao diện đồ họa, đầy đủ chức năng, sử dụng
+các cấu trúc dữ liệu và thuật toán đã học để code.
+Yêu cầu quyển báo cáo:
+Phần 1: Dịch sách: Tóm tắt
+Phần 2: Chương trình: Lí do chọn đề tài, Mô tả bài toán, Nội dung lý
+thuyết(Tính chất hướng hướng đối tượng, Cấu trúc dữ liệu dùng trong bài
+toán, Đồ họa – đưa một số đoạn code trong bài làm ví dụ minh họa), Giao
+diện chương trình, Phụ lục: link github, cách cài đặt chương trình, hướng dẫn
+sử dụng chương trình. (Các mục còn lại, các nhóm tự trình bày)
+Lưu ý: các thành viên trong nhóm phải hiểu rõ bài toán, biết cách thực
+hiện và góp sức trong quá trình dịch sách cũng như code. Nhóm nào có tình
+trạng gánh team sẽ bị 0 điểm cả nhóm.
+Các sản phẩm cần có:
+
+1. Một quyển báo cáo: báo cáo sẽ gồm hai phần chính là dịch sách và
+chương trình ứng dụng
+2. 1 File thuyết trình powerpoint (ppt)
+3. Link code trên github
