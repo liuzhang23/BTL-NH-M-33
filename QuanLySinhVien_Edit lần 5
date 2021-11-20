@@ -1,11 +1,9 @@
-# BTL-QuanLySinhVien-Nhom33
-
 #include<conio.h>
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
-
 
 class EN_Person{
 	private:
@@ -14,6 +12,8 @@ class EN_Person{
 		EN_Person();
 		~EN_Person();
 		string getName();
+		string getSex();
+		string getAddress();
 		virtual void Inputs();
 		virtual void Outputs();
 		virtual void Add();
@@ -36,15 +36,21 @@ EN_Person::~EN_Person(){
 string EN_Person::getName(){
 	return Name;
 }
+string EN_Person::getSex(){
+	return Sex;
+}
+string EN_Person::getAddress(){
+	return Address;
+}
 void EN_Person::Inputs(){
-	cout<<"\tName: "; fflush(stdin); getline(cin,Name);
+	cout<<"\tFull name: "; fflush(stdin); getline(cin,Name);
 	cout<<"\tSex: "; fflush(stdin); getline(cin,Sex);
 	cout<<"\tDate: "; fflush(stdin); getline(cin,Date);
 	cout<<"\tAddress: ";fflush(stdin); getline(cin,Address);
 	
 }
 void EN_Person::Outputs(){
-	cout<<"\t\t"<<Name<<"\t\t"<<Sex<<"\t\t"<<Date<<"\t\t"<<Address<<"\t\t";
+	cout<<left<<setw(30)<<Name<<setw(10)<<Sex<<setw(20)<<Date<<setw(20)<<Address;
 }
 void EN_Person::Add(){
 }
@@ -116,26 +122,28 @@ void EN_Student::InputEN_Student(){
 	cout<<"\tmedium score: "; cin>>Score;
 }
 void EN_Student::Inputs(){
-	cout<<"Enter the number of EN_Students: "; cin>>NumberEN_Students;
+	cout<<"Enter the number of Students: "; cin>>NumberEN_Students;
 	cout<<endl;
 	STD = new EN_Student [NumberEN_Students];
 	for(int i=0; i<NumberEN_Students; i++){
-		cout<<"\n\tEnter information of EN_Student "<<i+1<<":"<<endl;
+		cout<<"\n\tEnter information of Student "<<i+1<<":"<<endl;
 		STD[i].InputEN_Student();
 		Size++;
 	}
 }
 void EN_Student::Output(){
 	EN_Person::Outputs();
-	cout<<Code<<"\t\t"<<Class<<"\t\t"<<Score<<"\t\t";
+	cout<<setw(20)<<Code<<setw(35)<<Class<<setw(10)<<Score;
 }
 void EN_Student::Outputs(){
-	cout<<"\tSTT"<<"\t\tName"<<"\t\tSex"<<"\t\tDate"<<"\t\tAddress"<<"\t\tCode"<<"\t\tClass"<<"\t\tScore"<<endl;
+	cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+	<<"Date"<<setw(20)<<"Address"<<setw(20)<<"Code"<<setw(35)<<"Class"<<setw(10)<<"Score"<<endl;
 	for(int i=0; i<Size; i++){
-		cout<<"\t"<<i+1;
+		cout<<"\t"<<left<<setw(10)<<i+1;
 		STD[i].Output();
 		cout<<endl;
 	}
+	cout<<"\n\tnumber of students: "<<Size<<endl;
 }
 void EN_Student::Search(){
 	cout<<"\n\t\t\t\t********************************************";
@@ -143,38 +151,94 @@ void EN_Student::Search(){
   	cout<<"\n\t\t\t\t**                                        **";
   	cout<<"\n\t\t\t\t**  1. By name                            **";
     cout<<"\n\t\t\t\t**  2. By code                            **";
+    cout<<"\n\t\t\t\t**  3. By sex                             **";
+    cout<<"\n\t\t\t\t**  4. By class                           **";
+    cout<<"\n\t\t\t\t**  5. By address                         **";
 	cout<<"\n\t\t\t\t**                                        **";
     cout<<"\n\t\t\t\t********************************************";
 	int chooseSearch;
-	string Find1, Find2;
+	int Count = 0;
+	string Find;
 	cout<<"\n\tEnter your selection: "; cin>>chooseSearch;
 	switch(chooseSearch){
 	case 1:
 		cout<<"\nYou have selected the search function by name...\n"<<endl;
-		cout<<"\n\tEnter name of EN_Student: "; fflush(stdin); getline (cin,Find1);
-		cout<<"\n\t___EN_Student found___\n"<<endl;
-    	cout<<"\tSTT"<<"\t\tName"<<"\t\tSex"<<"\t\tDate"<<"\t\tAddress"<<"\t\tCode"<<"\t\tClass"<<"\t\tScore"<<endl;
+		cout<<"\n\tEnter name of Students: "; fflush(stdin); getline (cin,Find);
+		
+    	cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+		<<"Date"<<setw(20)<<"Address"<<setw(20)<<"Code"<<setw(35)<<"Class"<<setw(10)<<"Score"<<endl;
     	for (int i=0; i<Size; i++){
-   			if (Find1 == STD[i].getName()){
-				cout<<"\t"<<i+1;
+   			if (Find == STD[i].getName()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
+				STD[i].Output();
+				cout<<endl;
+				Count++;
+			}
+		}
+		cout<<"\n\tFound "<<Count<<" students\n"<<endl;
+		break;
+							
+	case 2:
+		cout<<"\nYou have selected the search function by code...\n"<<endl;
+		cout<<"\n\tEnter code of Student: "; fflush(stdin); getline (cin,Find);
+		cout<<"\n\tStudent found\n"<<endl;
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+		<<"Date"<<setw(20)<<"Address"<<setw(20)<<"Code"<<setw(35)<<"Class"<<setw(10)<<"Score"<<endl;
+		for (int i=0; i<Size; i++){
+    		if (Find == STD[i].getCode()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
 				STD[i].Output();
 				cout<<endl;
 			}
 		}
 		break;
-							
-	case 2:
-		cout<<"\nYou have selected the search function by code...\n"<<endl;
-		cout<<"\n\tEnter code of EN_Student: "; fflush(stdin); getline (cin,Find2);
-		cout<<"\n\t___EN_Student found___\n"<<endl;
-		cout<<"\tSTT"<<"\t\tName"<<"\t\tSex"<<"\t\tDate"<<"\t\tAddress"<<"\t\tCode"<<"\t\tClass"<<"\t\tScore"<<endl;
+	case 3:
+		cout<<"\nYou have selected the search function by sex...\n"<<endl;
+		cout<<"\n\tEnter sex of Students: "; fflush(stdin); getline (cin,Find);
+		cout<<"\n\t___Student found___\n"<<endl;
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+		<<"Date"<<setw(20)<<"Address"<<setw(20)<<"Code"<<setw(35)<<"Class"<<setw(10)<<"Score"<<endl;
 		for (int i=0; i<Size; i++){
-    		if (Find2 == STD[i].getCode()){
-				cout<<"\t"<<i+1;
+    		if (Find == STD[i].getSex()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
 				STD[i].Output();
 				cout<<endl;
+				Count++;
 			}
 		}
+		cout<<"\n\tFound "<<Count<<" students\n"<<endl;
+		break;
+	case 4:
+		cout<<"\nYou have selected the search function by sex...\n"<<endl;
+		cout<<"\n\tEnter class of Students: "; fflush(stdin); getline (cin,Find);
+		
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+		<<"Date"<<setw(20)<<"Address"<<setw(20)<<"Code"<<setw(35)<<"Class"<<setw(10)<<"Score"<<endl;
+		for (int i=0; i<Size; i++){
+    		if (Find == STD[i].getClass()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
+				STD[i].Output();
+				cout<<endl;
+				Count++;
+			}
+		}
+		cout<<"\n\tFound "<<Count<<" students\n"<<endl;
+		break;
+	case 5:
+		cout<<"\nYou have selected the search function by sex...\n"<<endl;
+		cout<<"\n\tEnter address of Students: "; fflush(stdin); getline (cin,Find);
+		
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+		<<"Date"<<setw(20)<<"Address"<<setw(20)<<"Code"<<setw(35)<<"Class"<<setw(10)<<"Score"<<endl;
+		for (int i=0; i<Size; i++){
+    		if (Find == STD[i].getAddress()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
+				STD[i].Output();
+				cout<<endl;
+				Count++;
+			}
+		}
+		cout<<"\n\tFound "<<Count<<" students\n"<<endl;
 		break;
 	default:
 		cout<<"\nThis function is not available! Please choose again!!!"<<endl;
@@ -215,7 +279,7 @@ void EN_Student::Sort(){
 							}
 						}
 					}
-					EN_Student::Outputs();
+					Outputs();
 					break;
 				case 2:
 					for(int i=0; i<Size-1; i++){
@@ -227,7 +291,7 @@ void EN_Student::Sort(){
 							}
 						}
 					}
-					EN_Student::Outputs();
+					Outputs();
 					break;
 				default:
 					cout<<"\nThis program is not available!!!"<<endl;
@@ -259,7 +323,7 @@ void EN_Student::Sort(){
 							}
 						}
 					}
-					EN_Student::Outputs();
+					Outputs();
 					break;
 				case 2:
 					for(int i=0; i<Size-1; i++){
@@ -272,7 +336,7 @@ void EN_Student::Sort(){
 							}
 						}
 					}
-					EN_Student::Outputs();
+					Outputs();
 					break;
 				default:
 					cout<<"\nThis program is not available!!!"<<endl;
@@ -296,26 +360,26 @@ void EN_Student::Sort(){
 				case 1:
 					for(int i=0; i<Size-1; i++){
     					for(int j=i+1; j<Size; j++){
-    						if (STD[i].getScore () > STD[j].getScore () ){
+    						if (STD[i].getScore () > STD[j].getScore()){
     							EN_Student temp = STD[i];
     							STD[i] = STD[j];
     							STD[j] = temp;
 							}
 						}
 					}
-					EN_Student::Outputs();
+					Outputs();
 					break;
 				case 2:
 					for(int i=0; i<Size-1; i++){
     					for(int j=i+1; j<Size; j++){
-    						if (STD[i].getScore () < STD[j].getScore () ){
+    						if (STD[i].getScore () < STD[j].getScore()){
     							EN_Student temp = STD[i];
     							STD[i] = STD[j];
     							STD[j] = temp;
 							}
 						}
 					}
-					EN_Student::Outputs();
+					Outputs();
 					break;
 				default:
 					cout<<"\nThis program is not available!!!"<<endl;
@@ -354,7 +418,7 @@ void EN_Student::Delete(){
 	int Num2;
 	cout<<"\nEnter the amount to delete: "; cin>>Num2;
 	for(int i=0; i<Num2; i++){
-		cout<<"\n\tEnter code of EN_Student: "; fflush(stdin); getline (cin,Erase);
+		cout<<"\n\tEnter code of Student: "; fflush(stdin); getline (cin,Erase);
 		for (int i=0; i<Size; i++){
     		if (Erase == STD[i].getCode()){
     			for (; i<Size-1; i++){
@@ -419,35 +483,38 @@ void EN_Consultant::InputEN_Consultant(){
 	cout<<"\tPhone number: "; fflush(stdin); getline(cin,PhoneNumber);
 }
 void EN_Consultant::Inputs(){
-	cout<<"Enter the number of EN_Consultant: "; cin>>NumberEN_Consultants;
+	cout<<"Enter the number of Consultant: "; cin>>NumberEN_Consultants;
 	cout<<endl;
 	C = new EN_Consultant[NumberEN_Consultants];
 	for(int i=0; i<NumberEN_Consultants; i++){
-		cout<<"\n\tEnter information of EN_Consultant "<<i+1<<": "<<endl;
+		cout<<"\n\tEnter information of Consultant "<<i+1<<": "<<endl;
 		C[i].InputEN_Consultant();
 		Size2++;
 	}
 }
 void EN_Consultant::Output(){
 	EN_Person::Outputs();
-	cout<<Lesson<<"\t\t"<<PhoneNumber<<"\t\t\t"<<Charge<<"\t\t";
+	cout<<left<<setw(10)<<Lesson<<setw(20)<<PhoneNumber<<setw(40)<<Charge;
 }
 void EN_Consultant::Outputs(){
-	cout<<"\tSTT"<<"\t\tName"<<"\t\tSex"<<"\t\tDate"<<"\t\tAddress"<<"\t\tLesson"<<"\t\tPhoneNumber"<<"\t\tCharge"<<endl;
+	cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+	<<"Date"<<setw(20)<<"Address"<<setw(10)<<"Lesson"<<setw(20)<<"PhoneNumber"<<setw(40)<<"Charge"<<endl;
 	for(int i=0; i<Size2; i++){				
-		cout<<"\t"<<i+1;
+		cout<<"\t"<<left<<setw(10)<<i+1;
 		C[i].Output();
 		cout<<endl;
 	}
+	cout<<"\n\tnumber of consultants: "<<Size2<<endl;
 }
 void EN_Consultant::Search(){
 	string SearchEN_Consultant;
 	cout<<"\n\tEnter name of EN_Consultant: "; fflush(stdin); getline (cin,SearchEN_Consultant);
 	cout<<"\n\t___EN_Consultant found___\n"<<endl;
-    cout<<"\tSTT"<<"\t\tName"<<"\t\tSex"<<"\t\tDate"<<"\t\tAddress"<<"\t\tLesson"<<"\t\tPhoneNumber"<<"\t\tCharge"<<endl;
+    cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Name"<<setw(10)<<"Sex"<<setw(20)
+	<<"Date"<<setw(20)<<"Address"<<setw(10)<<"Lesson"<<setw(20)<<"PhoneNumber"<<setw(40)<<"Charge"<<endl;
     for (int i=0; i<Size2; i++){
    		if (SearchEN_Consultant == C[i].getName()){
-			cout<<"\t"<<i+1;
+			cout<<"\t"<<left<<setw(10)<<i+1;
 			C[i].Output();
 			cout<<endl;
 		}
@@ -464,7 +531,7 @@ void EN_Consultant::Sort(){
 			}
 		}
 	}
-	EN_Consultant::Outputs();
+	Outputs();
 }
 void EN_Consultant::Add(){
 	int AddNum;
@@ -478,7 +545,7 @@ void EN_Consultant::Add(){
     	C[i] = Temp[i];
 	}
 	for(int i=0; i<AddNum; i++){
-		cout<<"\n\tAdd information of EN_Consultant "<<Size2+1<<":"<<endl;
+		cout<<"\n\tAdd information of Consultant "<<Size2+1<<":"<<endl;
 		C[Size2].InputEN_Consultant();
 		Size2++;
 	}  				
@@ -490,7 +557,7 @@ void EN_Consultant::Delete(){
 	int DeleteNum;
 	cout<<"\nEnter the amount to delete: "; cin>>DeleteNum;
 	for(int i=0; i<DeleteNum; i++){
-		cout<<"\n\tEnter name of EN_Consultant: "; fflush(stdin); getline (cin,DeleteEN_Consultant);
+		cout<<"\n\tEnter name of Consultant: "; fflush(stdin); getline (cin,DeleteEN_Consultant);
 		for (int i=0; i<Size2; i++){
     		if (DeleteEN_Consultant == C[i].getName()){
     			for (; i<Size2-1; i++){
@@ -675,8 +742,8 @@ void EN(){
 		cout<<"\n\t\t\t\t*************************************************";
     	cout<<"\n\t\t\t\t**              MANAGEMENT PROGRAM             **";
    		cout<<"\n\t\t\t\t**                                             **";
-    	cout<<"\n\t\t\t\t**        1. EN_Student                        **";
-    	cout<<"\n\t\t\t\t**        2. EN_Consultant                     **";
+    	cout<<"\n\t\t\t\t**        1. Student                           **";
+    	cout<<"\n\t\t\t\t**        2. Consultant                        **";
     	cout<<"\n\t\t\t\t**        0. Exit                              **";
     	cout<<"\n\t\t\t\t**                                             **";
     	cout<<"\n\t\t\t\t*************************************************";
@@ -700,7 +767,7 @@ void EN(){
 	}
 }
 
-//===============================================
+//===============================================TIENG VIET==========================================
 class VN_Person{
 	private:
 		string Name, Date, Address, Sex;
@@ -708,6 +775,8 @@ class VN_Person{
 		VN_Person();
 		~VN_Person();
 		string getName();
+		string getSex();
+		string getAddress();
 		virtual void Inputs();
 		virtual void Outputs();
 		virtual void Add();
@@ -730,15 +799,20 @@ VN_Person::~VN_Person(){
 string VN_Person::getName(){
 	return Name;
 }
+string VN_Person::getSex(){
+	return Sex;
+}
+string VN_Person::getAddress(){
+	return Address;
+}
 void VN_Person::Inputs(){
-	cout<<"\tTen: "; fflush(stdin); getline(cin,Name);
+	cout<<"\tHo ten: "; fflush(stdin); getline(cin,Name);
 	cout<<"\tGioi tinh: "; fflush(stdin); getline(cin,Sex);
 	cout<<"\tNgay sinh: "; fflush(stdin); getline(cin,Date);
 	cout<<"\tDia chi: ";fflush(stdin); getline(cin,Address);
-	
 }
 void VN_Person::Outputs(){
-	cout<<"\t\t"<<Name<<"\t\t"<<Sex<<"\t\t"<<Date<<"\t\t"<<Address<<"\t\t";
+	cout<<left<<setw(30)<<Name<<setw(15)<<Sex<<setw(20)<<Date<<setw(20)<<Address;
 }
 void VN_Person::Add(){
 }
@@ -805,9 +879,9 @@ string VN_Student::getClass(){
 }
 void VN_Student::InputVN_Student(){
 	VN_Person::Inputs();
-	cout<<"\tMSSV: "; fflush(stdin); getline(cin,Code);
+	cout<<"\tMa so sinh vien: "; fflush(stdin); getline(cin,Code);
 	cout<<"\tLop: "; fflush(stdin); getline(cin,Class);
-	cout<<"\tDiemTB: "; cin>>Score;
+	cout<<"\tDiem trung binh: "; cin>>Score;
 }
 void VN_Student::Inputs(){
 	cout<<"Nhap so luong sinh vien: "; cin>>NumberVN_Students;
@@ -821,54 +895,112 @@ void VN_Student::Inputs(){
 }
 void VN_Student::Output(){
 	VN_Person::Outputs();
-	cout<<Code<<"\t\t"<<Class<<"\t\t"<<Score<<"\t\t";
+	cout<<setw(20)<<Code<<setw(35)<<Class<<setw(10)<<Score;
 }
 void VN_Student::Outputs(){
-	cout<<"\tSTT"<<"\t\tTen"<<"\t\tGioiTinh"<<"\t\tNgaySinh"<<"\t\tDiaChi"<<"\t\tMSSV"<<"\t\tLop"<<"\t\tDiemTB"<<endl;
+	cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho Ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+	<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(20)<<"MSSV"<<setw(35)<<"Lop"<<setw(10)<<"DiemTB"<<endl;
 	for(int i=0; i<Size; i++){
-		cout<<"\t"<<i+1;
+		cout<<"\t"<<left<<setw(10)<<i+1;
 		STD[i].Output();
 		cout<<endl;
 	}
+	cout<<"\n\tSo luong sinh vien: "<<Size<<endl;
 }
 void VN_Student::Search(){
 	cout<<"\n\t\t\t\t********************************************";
    	cout<<"\n\t\t\t\t**           CHUC NANG TIM KIEM           **";
   	cout<<"\n\t\t\t\t**                                        **";
-  	cout<<"\n\t\t\t\t**  1. Theo ten                           **";
-    cout<<"\n\t\t\t\t**  2. Theo Ma so sinh vien               **";
+  	cout<<"\n\t\t\t\t**  1. Ten                                **";
+    cout<<"\n\t\t\t\t**  2. Ma so sinh vien                    **";
+    cout<<"\n\t\t\t\t**  3. Gioi tinh                          **";
+    cout<<"\n\t\t\t\t**  4. Lop                                **";
+    cout<<"\n\t\t\t\t**  5. Que quan                           **";
 	cout<<"\n\t\t\t\t**                                        **";
     cout<<"\n\t\t\t\t********************************************";
 	int chooseSearch;
-	string Find1, Find2;
+	int Count = 0;
+	string Find;
 	cout<<"\n\tNhap lua chon cua ban: "; cin>>chooseSearch;
 	switch(chooseSearch){
 	case 1:
 		cout<<"\nBan da lua chon chuc nang tim kiem theo ten...\n"<<endl;
-		cout<<"\n\tNhap ten can tim: "; fflush(stdin); getline (cin,Find1);
-		cout<<"\n\t___Sinh vien duoc tim thay___\n"<<endl;
-    	cout<<"\tSTT"<<"\t\tTen"<<"\t\tGioiTinh"<<"\t\tNgaySinh"<<"\t\tDiaChi"<<"\t\tMSSV"<<"\t\tLop"<<"\t\tDiemTB"<<endl;
+		cout<<"\n\tNhap ten can tim: "; fflush(stdin); getline (cin,Find);
+		
+    	cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho Ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+		<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(20)<<"MSSV"<<setw(35)<<"Lop"<<setw(10)<<"DiemTB"<<endl;
     	for (int i=0; i<Size; i++){
-   			if (Find1 == STD[i].getName()){
-				cout<<"\t"<<i+1;
+   			if (Find == STD[i].getName()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
+				STD[i].Output();
+				cout<<endl;
+				Count++;
+			}
+		}
+		cout<<"\n\tDa tim thay "<<Count<<" sinh vien."<<endl;
+		break;
+							
+	case 2:
+		cout<<"\nBan da lua chon chuc nang tim kiem theo ma so sinh vien...\n"<<endl;
+		cout<<"\n\tNhap ma so sinh vien can tim: "; fflush(stdin); getline (cin,Find);
+		cout<<"\n\tSinh vien duoc tim thay\n"<<endl;
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho Ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+		<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(20)<<"MSSV"<<setw(35)<<"Lop"<<setw(10)<<"DiemTB"<<endl;
+		for (int i=0; i<Size; i++){
+    		if (Find == STD[i].getCode()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
 				STD[i].Output();
 				cout<<endl;
 			}
 		}
 		break;
-							
-	case 2:
-		cout<<"\nBan da lua chon chuc nang tim kiem theo ma so sinh vien...\n"<<endl;
-		cout<<"\n\tNhap ma so sinh vien can tim: "; fflush(stdin); getline (cin,Find2);
-		cout<<"\n\t___Sinh vien duoc tim thay___\n"<<endl;
-		cout<<"\tSTT"<<"\t\tTen"<<"\t\tGioiTinh"<<"\t\tNgaySinh"<<"\t\tDiaChi"<<"\t\tMSSV"<<"\t\tLop"<<"\t\tDiemTB"<<endl;
+	case 3:
+		cout<<"\nBan da lua chon chuc nang tim kiem theo gioi tinh...\n"<<endl;
+		cout<<"\n\tNhap ma so sinh vien can tim: "; fflush(stdin); getline (cin,Find);
+		
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho Ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+		<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(20)<<"MSSV"<<setw(35)<<"Lop"<<setw(10)<<"DiemTB"<<endl;
 		for (int i=0; i<Size; i++){
-    		if (Find2 == STD[i].getCode()){
-				cout<<"\t"<<i+1;
+    		if (Find == STD[i].getSex()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
 				STD[i].Output();
 				cout<<endl;
+				Count++;
 			}
 		}
+		cout<<"\n\tDa tim thay "<<Count<<" sinh vien."<<endl;
+		break;
+	case 4:
+		cout<<"\nBan da lua chon chuc nang tim kiem theo Lop...\n"<<endl;
+		cout<<"\n\tNhap ma so sinh vien can tim: "; fflush(stdin); getline (cin,Find);
+		
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho Ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+		<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(20)<<"MSSV"<<setw(35)<<"Lop"<<setw(10)<<"DiemTB"<<endl;
+		for (int i=0; i<Size; i++){
+    		if (Find == STD[i].getClass()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
+				STD[i].Output();
+				cout<<endl;
+				Count++;
+			}
+		}
+		cout<<"\n\tDa tim thay "<<Count<<" sinh vien."<<endl;
+		break;
+	case 5:
+		cout<<"\nBan da lua chon chuc nang tim kiem theo dia chi...\n"<<endl;
+		cout<<"\n\tNhap ma so sinh vien can tim: "; fflush(stdin); getline (cin,Find);
+		
+		cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho Ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+		<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(20)<<"MSSV"<<setw(35)<<"Lop"<<setw(10)<<"DiemTB"<<endl;
+		for (int i=0; i<Size; i++){
+    		if (Find == STD[i].getAddress()){
+				cout<<"\t"<<left<<setw(10)<<i+1;
+				STD[i].Output();
+				cout<<endl;
+				Count++;
+			}
+		}
+		cout<<"\n\tDa tim thay "<<Count<<" sinh vien."<<endl;
 		break;
 	default:
 		cout<<"\nKhong co chuc nang nay! Vui long chon lai!!!"<<endl;
@@ -909,7 +1041,7 @@ void VN_Student::Sort(){
 							}
 						}
 					}
-					VN_Student::Outputs();
+					Outputs();
 					break;
 				case 2:
 					for(int i=0; i<Size-1; i++){
@@ -921,7 +1053,7 @@ void VN_Student::Sort(){
 							}
 						}
 					}
-					VN_Student::Outputs();
+					Outputs();
 					break;
 				default:
 					cout<<"\nKhong co chuc nang nay!!!"<<endl;
@@ -953,7 +1085,7 @@ void VN_Student::Sort(){
 							}
 						}
 					}
-					VN_Student::Outputs();
+					Outputs();
 					break;
 				case 2:
 					for(int i=0; i<Size-1; i++){
@@ -966,7 +1098,7 @@ void VN_Student::Sort(){
 							}
 						}
 					}
-					VN_Student::Outputs();
+					Outputs();
 					break;
 				default:
 					cout<<"\nKhong co chuc nang nay!!!"<<endl;
@@ -997,7 +1129,7 @@ void VN_Student::Sort(){
 							}
 						}
 					}
-					VN_Student::Outputs();
+					Outputs();
 					break;
 				case 2:
 					for(int i=0; i<Size-1; i++){
@@ -1009,7 +1141,7 @@ void VN_Student::Sort(){
 							}
 						}
 					}
-					VN_Student::Outputs();
+					Outputs();
 					break;
 				default:
 					cout<<"\nKhong co chuc nang nay!!!"<<endl;
@@ -1124,21 +1256,24 @@ void VN_Consultant::Inputs(){
 }
 void VN_Consultant::Output(){
 	VN_Person::Outputs();
-	cout<<Lesson<<"\t\t"<<PhoneNumber<<"\t\t\t"<<Charge<<"\t\t";
+	cout<<left<<setw(15)<<Lesson<<setw(20)<<PhoneNumber<<setw(40)<<Charge;
 }
 void VN_Consultant::Outputs(){
-	cout<<"\tSTT"<<"\t\tTen"<<"\t\tGioiTinh"<<"\t\tNgaySinh"<<"\t\tDiaChi"<<"\t\tSoTietDay"<<"\t\tSoDienThoai"<<"\t\tCoVanLop"<<endl;
+	cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+	<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(15)<<"So Tiet Day"<<setw(20)<<"So Dien Thoai"<<setw(40)<<"Co van"<<endl;
 	for(int i=0; i<Size2; i++){				
-		cout<<"\t"<<i+1;
+		cout<<"\t"<<left<<setw(10)<<i+1;
 		C[i].Output();
 		cout<<endl;
 	}
+	cout<<"\n\tSo luong co van hoc tap: "<<Size2<<endl;
 }
 void VN_Consultant::Search(){
 	string SearchVN_Consultant;
 	cout<<"\n\tNhap ten can tim: "; fflush(stdin); getline (cin,SearchVN_Consultant);
 	cout<<"\n\t___Da tim thay___\n"<<endl;
-    cout<<"\tSTT"<<"\t\tTen"<<"\t\tGioiTinh"<<"\t\tNgaySinh"<<"\t\tDiaChi"<<"\t\tSoTietDay"<<"\t\tSoDienThoai"<<"\t\tCoVanLop"<<endl;
+    cout<<"\t"<<left<<setw(10)<<"STT"<<setw(30)<<"Ho ten"<<setw(15)<<"Gioi tinh"<<setw(20)
+	<<"Ngay sinh"<<setw(20)<<"Dia chi"<<setw(15)<<"So Tiet Day"<<setw(20)<<"So Dien Thoai"<<setw(40)<<"Co van"<<endl;
     for (int i=0; i<Size2; i++){
    		if (SearchVN_Consultant == C[i].getName()){
 			cout<<"\t"<<i+1;
@@ -1158,7 +1293,7 @@ void VN_Consultant::Sort(){
 			}
 		}
 	}
-	VN_Consultant::Outputs();
+	Outputs();
 }
 void VN_Consultant::Add(){
 	int AddNum;
