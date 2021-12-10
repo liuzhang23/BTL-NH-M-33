@@ -1,12 +1,12 @@
 /*
-	HỌ TÊN: LÊ BÁ KHÁNH TRÌNH
+	HO TEN: LE BA KHANH TRINH
 	MSSV: 6151071108
-	NHÓM: 33
+	NHOM: 33
   
-  Yêu cầu: cài đặt chức năng đăng ký tài khoản, đăng nhập.
-  từ dòng 1953 - 2131
-  
+  YEU CAU:	cai dat chuc nang dang ky tai khoan, dang nhap, quen mat khau
+  tu dòng 1953 - 2131
 
+https://github.com/liuzhang23/BTL-QuanLySinhVien-Nhom33/blob/main/QuanLySinhVien.cpp
 */
 
 #include<conio.h>
@@ -1969,7 +1969,7 @@ class TaiKhoan{
 
 TaiKhoan::TaiKhoan() {
 	tk = NULL;
-	n = -1;
+	n = 0;
 	tdn = "";
 	mk = "";
 	mbm = "";
@@ -1977,13 +1977,14 @@ TaiKhoan::TaiKhoan() {
 
 TaiKhoan::TaiKhoan(int m) {
 	tk = new TaiKhoan[m];
-	n = -1;
+	n = 0;
 	tdn = "";
 	mk = "";
 	mbm = "";
 }
 TaiKhoan::~TaiKhoan(){
 	delete [] tk;
+	
 }
 
 string TaiKhoan::get_tdn(){
@@ -1999,7 +2000,7 @@ string TaiKhoan::get_mbm(){
 }
 
 void TaiKhoan::DangKy(){	
-	n++;
+	
 	TaiKhoan *Temp = new TaiKhoan [n];
     for (int i=0; i<n; i++){
     		Temp[i] = tk[i];
@@ -2033,7 +2034,7 @@ void TaiKhoan::DangKy(){
 		cout<<"Nhap lai mat khau: "; fflush(stdin); getline(cin,mk2);
 	}
 	cout<<"\nDang ky thanh cong"<<endl;
-		
+	n++;	
 }
 
 void TaiKhoan::QuenMatKhau(){
@@ -2041,7 +2042,7 @@ void TaiKhoan::QuenMatKhau(){
 	cout<<"QUEN MAT KHAU"<<endl;
 	cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tdn);
 	
-	for (int i=0; i<=n; i++){
+	for (int i=0; i<n; i++){
 		if (tdn == tk[i].tdn){
 			cout<<"Nhap ma bao mat: "; fflush(stdin); getline(cin,mbm);
 				if (mbm == tk[i].get_mbm()){
@@ -2054,9 +2055,7 @@ void TaiKhoan::QuenMatKhau(){
 			cout<<"Khong tim thay tai khoan!!!"<<endl;
 		}
 	}
-	if(n==-1){
-		cout<<"Khong tim thay tai khoan!!!"<<endl;
-	}
+	
 }
 
 void TaiKhoan::DangNhap(bool &check){
