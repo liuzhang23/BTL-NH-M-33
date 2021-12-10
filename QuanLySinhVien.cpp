@@ -1,10 +1,11 @@
 /*
-  HỌ TÊN: LÊ BÁ KHÁNH TRÌNH
+	HỌ TÊN: LÊ BÁ KHÁNH TRÌNH
 	MSSV: 6151071108
 	NHÓM: 33
   
   Yêu cầu: cài đặt chức năng đăng ký tài khoản, đăng nhập.
-  từ dòng 1952 - 2078
+  từ dòng 1953 - 2131
+  
 
 */
 
@@ -1952,8 +1953,7 @@ void Vi(){
 class TaiKhoan{
 	private:
 		TaiKhoan *tk;
-		string tdn, mk;
-	
+		string tdn, mk, mbm;
 		int n;
 	public:
 		TaiKhoan ();
@@ -1961,18 +1961,26 @@ class TaiKhoan{
 		~TaiKhoan ();
 		string get_tdn();
 		string get_mk();
+		string get_mbm();
 		void DangKy ();
 		void DangNhap (bool &check);
+		void QuenMatKhau ();
 };
 
 TaiKhoan::TaiKhoan() {
 	tk = NULL;
-	n = 0;
+	n = -1;
+	tdn = "";
+	mk = "";
+	mbm = "";
 }
 
 TaiKhoan::TaiKhoan(int m) {
 	tk = new TaiKhoan[m];
-	n = 0;
+	n = -1;
+	tdn = "";
+	mk = "";
+	mbm = "";
 }
 TaiKhoan::~TaiKhoan(){
 	delete [] tk;
@@ -1986,8 +1994,12 @@ string TaiKhoan::get_mk(){
 	return mk;
 }
 
+string TaiKhoan::get_mbm(){
+	return mbm;
+}
+
 void TaiKhoan::DangKy(){	
-	
+	n++;
 	TaiKhoan *Temp = new TaiKhoan [n];
     for (int i=0; i<n; i++){
     		Temp[i] = tk[i];
@@ -1997,17 +2009,54 @@ void TaiKhoan::DangKy(){
     	tk[i] = Temp[i];
 	}
 	string mk2;
+	bool kiemtra;
 	cout<<"DANG KY TAI KHOAN"<<endl;
-	cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tk[n].tdn);
+	do{
+		cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tk[n].tdn);
+		kiemtra = true;
+		for (int i=0; i<n; i++){
+			if (tk[n].tdn == tk[i].tdn){
+				cout<<"\nTen dang nhap da ton tai!!!"<<endl;
+				kiemtra = false;
+			}
+		}
+	}while(kiemtra == false);
+	
+	
 	cout<<"Nhap mat khau: "; fflush(stdin); getline(cin,tk[n].mk);
 	cout<<"Nhap lai mat khau: "; fflush(stdin); getline(cin,mk2);
+	
+	cout<<"Nhap ma bao mat: "; fflush(stdin); getline(cin,tk[n].mbm);
 
 	while(mk2 != tk[n].mk){
 		cout<<"Mat khau khong trung khop!!! Vui long nhap lai!"<<endl;
 		cout<<"Nhap lai mat khau: "; fflush(stdin); getline(cin,mk2);
 	}
+	cout<<"\nDang ky thanh cong"<<endl;
+		
+}
+
+void TaiKhoan::QuenMatKhau(){
+	string tdn, mbm;
+	cout<<"QUEN MAT KHAU"<<endl;
+	cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tdn);
 	
-	n++;	
+	for (int i=0; i<=n; i++){
+		if (tdn == tk[i].tdn){
+			cout<<"Nhap ma bao mat: "; fflush(stdin); getline(cin,mbm);
+				if (mbm == tk[i].get_mbm()){
+					cout<<"Nhap mat khau moi: "; fflush(stdin); getline(cin,tk[i].mk);
+					cout<<"\nThay doi mat khau thanh cong!!!"<<endl;
+				}else{
+					cout<<"Ma bao mat khong chinh xac!!!"<<endl;
+				}
+		}else{
+			cout<<"Khong tim thay tai khoan!!!"<<endl;
+		}
+	}
+	if(n==-1){
+		cout<<"Khong tim thay tai khoan!!!"<<endl;
+	}
 }
 
 void TaiKhoan::DangNhap(bool &check){
@@ -2018,7 +2067,7 @@ void TaiKhoan::DangNhap(bool &check){
 	for (int i=0; i< n; i++){
 		if(tdn2 == tk[i].get_tdn() && mk2 == tk[i].get_mk()){
 			check = true;
-			cout<<"Dang nhap thanh cong"<<endl;
+			cout<<"\nDang nhap thanh cong"<<endl;
 		}
 	}
 }
@@ -2029,6 +2078,7 @@ void KhoiDong(bool check){
 		cout<<endl;
 		cout<<"1. Dang Ky"<<endl;
 		cout<<"2. Dang Nhap"<<endl;
+		cout<<"3. Quen mat khau"<<endl;
 		cout<<"0. Thoat"<<endl<<endl;
 		int luachon;
 		cout<<"Nhap lua chon: "; cin>>luachon; cout<<endl;
@@ -2062,6 +2112,9 @@ void KhoiDong(bool check){
 				}else{
 					cout<<"Ten dang nhap hoac mat khau khong chinh xac!!!"<<endl;
 				}
+				break;
+			case 3:
+				tk.QuenMatKhau();
 				break;
 			case 0:
 				return ;
