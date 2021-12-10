@@ -4,7 +4,7 @@
 	NHOM: 33
   
   YEU CAU:	cai dat chuc nang dang ky tai khoan, dang nhap, quen mat khau
-  tu dòng 1953 - 2131
+  tu dòng 1953 - 2127
 
 https://github.com/liuzhang23/BTL-QuanLySinhVien-Nhom33/blob/main/QuanLySinhVien.cpp
 */
