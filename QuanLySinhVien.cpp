@@ -4,7 +4,7 @@
 	NHÓM: 33
   
   Yêu cầu: cài đặt chức năng đăng ký tài khoản, đăng nhập.
-  từ dòng 1952 - 2077
+  từ dòng 1952 - 2078
 
 */
 
@@ -2062,6 +2062,7 @@ void KhoiDong(bool check){
 				}else{
 					cout<<"Ten dang nhap hoac mat khau khong chinh xac!!!"<<endl;
 				}
+				break;
 			case 0:
 				return ;
 			default:
