@@ -1984,7 +1984,6 @@ TaiKhoan::TaiKhoan(int m) {
 }
 TaiKhoan::~TaiKhoan(){
 	delete [] tk;
-	
 }
 
 string TaiKhoan::get_tdn(){
@@ -2000,7 +1999,6 @@ string TaiKhoan::get_mbm(){
 }
 
 void TaiKhoan::DangKy(){	
-	
 	TaiKhoan *Temp = new TaiKhoan [n];
     for (int i=0; i<n; i++){
     		Temp[i] = tk[i];
@@ -2034,28 +2032,29 @@ void TaiKhoan::DangKy(){
 		cout<<"Nhap lai mat khau: "; fflush(stdin); getline(cin,mk2);
 	}
 	cout<<"\nDang ky thanh cong"<<endl;
-	n++;	
+	n++;
 }
 
 void TaiKhoan::QuenMatKhau(){
-	string tdn, mbm;
+	string tdn1, mbm1;
 	cout<<"QUEN MAT KHAU"<<endl;
-	cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tdn);
-	
+	cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tdn1);
+	bool ck = true;
 	for (int i=0; i<n; i++){
-		if (tdn == tk[i].tdn){
-			cout<<"Nhap ma bao mat: "; fflush(stdin); getline(cin,mbm);
-				if (mbm == tk[i].get_mbm()){
+		if (tdn1 == tk[i].tdn){
+			ck = false;
+			cout<<"Nhap ma bao mat: "; fflush(stdin); getline(cin,mbm1);
+				if (mbm1 == tk[i].get_mbm()){
 					cout<<"Nhap mat khau moi: "; fflush(stdin); getline(cin,tk[i].mk);
 					cout<<"\nThay doi mat khau thanh cong!!!"<<endl;
 				}else{
 					cout<<"Ma bao mat khong chinh xac!!!"<<endl;
 				}
-		}else{
-			cout<<"Khong tim thay tai khoan!!!"<<endl;
 		}
 	}
-	
+	if(ck==true){
+		cout<<"Khong tim thay tai khoan!!!"<<endl;
+	}
 }
 
 void TaiKhoan::DangNhap(bool &check){
@@ -2063,7 +2062,7 @@ void TaiKhoan::DangNhap(bool &check){
 	cout<<"DANG NHAP"<<endl;
 	cout<<"Nhap ten dang nhap: "; fflush(stdin); getline(cin,tdn2);
 	cout<<"Nhap mat khau: "; fflush(stdin); getline(cin,mk2);
-	for (int i=0; i< n; i++){
+	for (int i=0; i<n; i++){
 		if(tdn2 == tk[i].get_tdn() && mk2 == tk[i].get_mk()){
 			check = true;
 			cout<<"\nDang nhap thanh cong"<<endl;
@@ -2096,16 +2095,17 @@ void KhoiDong(bool check){
 					}
 					switch(Language){
 						case 1:
+							check = false;
 							EN();
 							break;
 						case 2:
+							check = false;
 							Vi();
 							break;
 						case 0:
+							check = false;
 							break ;
-						default:
-							cout<<"\nKhong co chuc nang nay, Vui long chon lai!!!"<<endl;
-							break;
+						
 					}
 									
 				}else{
@@ -2117,9 +2117,6 @@ void KhoiDong(bool check){
 				break;
 			case 0:
 				return ;
-			default:
-				cout<<"\nKhong co chuc nang nay, Vui long chon lai!!!"<<endl;
-				break;
 		}
 	}
 }
