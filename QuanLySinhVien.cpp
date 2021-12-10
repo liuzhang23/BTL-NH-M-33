@@ -1,13 +1,12 @@
 /*
-  HO TEN: LE BA KHANH TRINH
+  HỌ TÊN: LÊ BÁ KHÁNH TRÌNH
 	MSSV: 6151071108
-	NHOM: 33
+	NHÓM: 33
   
   Yêu cầu: cài đặt chức năng đăng ký tài khoản, đăng nhập.
-  từ dòng 1942 - 2062
+  từ dòng 1952 - 2077
 
 */
-
 
 #include<conio.h>
 #include <iostream>
@@ -2062,7 +2061,12 @@ void KhoiDong(bool check){
 									
 				}else{
 					cout<<"Ten dang nhap hoac mat khau khong chinh xac!!!"<<endl;
-				}	
+				}
+			case 0:
+				return ;
+			default:
+				cout<<"\nKhong co chuc nang nay, Vui long chon lai!!!"<<endl;
+				break;
 		}
 	}
 }
